@@ -21,19 +21,16 @@ const Bookshelf = () => {
         setNewBook(
             {
                 ...newBook,
-                [event.name]: event.value
+                [event.target.name]: event.target.value
             }
         )
     }
 
     const handleSubmit = (event) => {
+        const title = event.target.title.value
+        const author = event.target.author.value
         event.preventDefault()
-        setBooks(...books,
-            {
-                title: event.target.title,
-                author: event.target.author
-            }
-        )
+        setBooks([...books, {title, author}])
         setNewBook(
             {
                 title: '',
@@ -67,10 +64,10 @@ const Bookshelf = () => {
             <div className="bookCardsDiv">
                 {books.map((book) => {
                     return (
-                        <div className="bookCard">
+                        <li className="bookCard" key={book.title}>
                             <p>{book.title}</p>
                             <p>by {book.author}</p>
-                        </div>
+                        </li>
                     )
                 })}
             </div>
